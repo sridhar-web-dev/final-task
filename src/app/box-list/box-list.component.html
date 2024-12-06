@@ -1,0 +1,76 @@
+<section class="box my-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12 text-center mb-3">
+            <h1>Dynamic Squares Listing</h1>
+        </div>
+        <div class="col-lg-4">
+            <div class="card mb-5">
+                <div class="card-body">
+                  <form #squareForm="ngForm" (ngSubmit)="addSquare()">
+                    <div class="top-bar d-flex align-items-center justify-content-center">
+                      <div class="form-group me-2">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="newTitle"
+                          name="title"
+                          #title="ngModel"
+                          placeholder="Enter square title"
+                          required
+                        />
+                        <!-- Error message -->
+                        <div *ngIf="title.invalid && title.touched" class="text-danger mt-1">
+                          Title is required.
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-primary"
+                        [disabled]="squareForm.invalid"
+                        type="submit"
+                      >
+                        Add Square
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-12">
+          
+  
+          <div
+            class="d-flex flex-wrap justify-content-center gap-3"
+            fxLayout="row wrap"
+            fxLayoutGap="10px"
+            fxLayoutAlign="center start"
+          >
+            <div
+              *ngFor="let square of squares; let i = index"
+              class="square border border-primary rounded p-3 position-relative"
+              style="width: 300px; height: 300px;"
+              fxLayout="column"
+              fxLayoutAlign="center center"
+            >
+              <span class="number position-absolute top-20 start-10 p-1  bg-dark text-white rounded">
+                {{ i + 1 }}
+              </span>
+              <a
+                [routerLink]="['/box', square.id]"
+                class="title text-decoration-none text-light fw-bold text-center d-block"
+              >
+                {{ square.title }}
+              </a>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteSquare(i)"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
